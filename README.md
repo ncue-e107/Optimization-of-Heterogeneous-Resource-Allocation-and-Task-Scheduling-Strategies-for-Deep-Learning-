@@ -120,4 +120,15 @@ Output logs and checkpoints are saved in the `results/` directory. Summary stati
 
 ## License
 
-This project is licensed under the MIT License. See `LICENSE` for more details.
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License** (CC BY-NC 4.0).
+
+### Permissions:
+- **Share**: You may copy and redistribute the material in any medium or format.
+- **Adapt**: You may remix, transform, and build upon the material for non-commercial purposes.
+
+### Restrictions:
+- **NonCommercial**: The material may not be used for commercial purposes.
+- **Attribution Required**: Proper credit must be given, a link to the license must be provided, and any changes made must be indicated.
+
+For more details, refer to the full license: [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
+
