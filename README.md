@@ -1,4 +1,5 @@
 # Optimization of Heterogeneous Resource Allocation and Task Scheduling Strategies for Deep Learning Automatic Hyperparameter Tuning System Based on Ray Tune
+![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)
 
 This project implements an advanced hyperparameter tuning system for deep learning models, focusing on optimizing **heterogeneous resource allocation** and **task scheduling strategies**. It uses **Ray Tune** to efficiently manage distributed workloads and performs **Population-Based Training (PBT)** to evolve hyperparameters dynamically.
 
