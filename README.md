@@ -48,7 +48,7 @@ pip install -r /python code/requirements.txt
 ### 2. Run the System
 Execute the script with:
 ```bash
-python script_name.py --exp_times <number_of_experiments>
+python python code/main.py --exp_times <number_of_experiments>
 ```
 Replace `<number_of_experiments>` with the desired number of repetitions for the experiment.
 
