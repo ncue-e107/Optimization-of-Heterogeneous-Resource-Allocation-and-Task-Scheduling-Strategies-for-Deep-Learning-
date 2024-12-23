@@ -1,90 +1,69 @@
-# Population-Based Training with Ray for ResNet Models
+# Optimization of Heterogeneous Resource Allocation and Task Scheduling Strategies for Deep Learning Automatic Hyperparameter Tuning System Based on Ray Tune
 
-This repository implements a **Population-Based Training (PBT)** system for hyperparameter optimization of **ResNet-18** and **ResNet-50** models on the **CIFAR-10** and **CIFAR-100** datasets. The solution leverages **Ray**, a distributed computing framework, to manage resources and perform hyperparameter exploration and exploitation efficiently.
+This project implements an advanced hyperparameter tuning system for deep learning models, focusing on optimizing **heterogeneous resource allocation** and **task scheduling strategies**. It uses **Ray Tune** to efficiently manage distributed workloads and performs **Population-Based Training (PBT)** to evolve hyperparameters dynamically.
+
+The system supports **ResNet-18** and **ResNet-50** models, trained on **CIFAR-10** and **CIFAR-100** datasets, with automatic task scheduling and resource allocation strategies tailored for multi-node clusters with varying CPU and GPU resources.
 
 ---
 
 ## Features
 
-1. **Population-Based Training (PBT):**
-   - Adaptive hyperparameter tuning using exploration (mutation of hyperparameters) and exploitation (copying successful configurations).
-   - Tracks model performance to evolve hyperparameters dynamically during training.
+1. **Optimized Resource Allocation:**
+   - Adapts to heterogeneous clusters by balancing task distribution across nodes with different CPU and GPU configurations.
+   
+2. **Advanced Task Scheduling:**
+   - Dynamically schedules training jobs based on available resources and trial progress.
+   
+3. **Population-Based Training (PBT):**
+   - Evolves hyperparameters through exploration (mutation) and exploitation (copying successful configurations).
 
-2. **Distributed Training:**
-   - Implements a resource-aware system using **Ray** to distribute training workloads across multiple nodes.
-   - Customizable CPU and GPU resource allocation for each machine in the cluster.
+4. **Distributed Training with Ray Tune:**
+   - Efficiently distributes workloads across multiple nodes for scalable hyperparameter tuning.
 
-3. **Model Architectures:**
-   - Supports **ResNet-18** (CIFAR-10) and **ResNet-50** (CIFAR-100) architectures with modified fully connected layers for classification tasks.
+5. **Real-time Reporting and Analytics:**
+   - Monitors resource usage, training progress, and hyperparameter configurations in real-time.
 
-4. **Checkpointing:**
-   - Periodically saves model and optimizer states, enabling efficient resumption during hyperparameter tuning or training interruptions.
+6. **Model Support:**
+   - Supports **ResNet-18** and **ResNet-50**, customizable for other models and datasets.
 
-5. **Real-time Reporting:**
-   - Provides detailed, real-time insights into trial progress, resource utilization, and hyperparameter states during training.
-
-6. **Configurable Parameters:**
-   - Flexible configurations for the number of trials, stopping criteria, and hyperparameter mutation ranges.
-
-7. **Result Logging:**
-   - Logs training runtime, resource usage, and achieved accuracy into structured output files for post-analysis.
+7. **Checkpointing and Recovery:**
+   - Periodically saves training state for resumption and supports fault-tolerance.
 
 ---
 
 ## Requirements
 
-- Python 3.8+
-- PyTorch
-- Ray
-- torchvision
-- matplotlib
-- numpy
-- argparse
-
-Install the required packages with:
+Install the dependencies using:
 ```bash
-pip install torch torchvision ray matplotlib numpy
+pip install -r requirements.txt
 ```
 
 ---
 
 ## Usage
 
-### 1. Configure Resource Allocation
-Update the `RESOURCE_ALLOCATION` dictionary in the script to define the CPU and GPU resources for each node in your cluster:
-```python
-RESOURCE_ALLOCATION = {
-    "CPU": {
-        "192.168.50.34": 16,
-        "192.168.50.35": 12,
-        "192.168.50.36": 4,
-        ...
-    },
-    "GPU": {
-        "192.168.50.35": 1
-    }
-}
-```
+### 1. Configure the Environment
+- Update the `RESOURCE_ALLOCATION` dictionary in the script to reflect the available CPU and GPU resources for your cluster.
 
-### 2. Run the Training
+### 2. Run the System
 Execute the script with:
 ```bash
 python script_name.py --exp_times <number_of_experiments>
 ```
 Replace `<number_of_experiments>` with the desired number of repetitions for the experiment.
 
-### 3. Monitor Progress
-The script provides real-time updates on:
+### 3. Monitor Training
+The system provides real-time logs of:
+- Resource usage (CPU/GPU)
 - Hyperparameter configurations
-- Resource usage (CPU and GPU)
-- Accuracy and iteration progress
+- Training progress (accuracy and iterations)
 
 ### 4. Analyze Results
-Output logs and accuracy checkpoints are saved in a structured directory under `results/`. Training statistics, including runtime and accuracy, are appended to `Running_Results.txt`.
+Output logs and checkpoints are saved in the `results/` directory. Summary statistics, including average runtime and accuracy, are logged in `Running_Results.txt`.
 
 ---
 
-## Configurable Parameters
+## Configurations
 
 | Parameter               | Description                                    | Default Value |
 |-------------------------|------------------------------------------------|---------------|
@@ -95,57 +74,47 @@ Output logs and accuracy checkpoints are saved in a structured directory under `
 | `INTERVAL_REPORT`       | Interval for reporting progress (in seconds)   | 300           |
 | `INTERVAL_CHECK`        | Checkpoint interval (in iterations)            | 50            |
 
-To customize these parameters, modify their values in the script or create a configuration file.
-
 ---
 
-## Code Structure
+## Key Components
 
-### Key Components
-1. **Data Loaders**:
-   - `get_data_loader`: Dynamically creates data loaders for CIFAR-10 and CIFAR-100 datasets.
+1. **Task Scheduler and Resource Allocator**:
+   - Dynamically assigns tasks to nodes based on available resources and workload efficiency.
 
-2. **Training Utilities**:
-   - `train`: Executes one iteration of training.
-   - `test`: Evaluates the model on test data to calculate accuracy.
+2. **Population-Based Training (PBT)**:
+   - Evolves hyperparameters such as learning rate and momentum to optimize model performance.
 
-3. **Population-Based Training**:
-   - `Tuner`: Manages hyperparameter configurations, resource scheduling, and checkpointing.
-   - `mutation`: Handles hyperparameter exploration and exploitation.
+3. **Checkpoints and Recovery**:
+   - Saves model and optimizer states periodically to allow recovery and efficient mutation.
 
-4. **Distributed Training**:
-   - `Trial`: Executes the training process for a given hyperparameter configuration.
-   - `Reporter`: Provides real-time status updates on trials and resources.
-
-### Output
-- **Real-time Logs**: Detailed progress and status updates in the terminal.
-- **Results Directory**: Contains per-trial accuracy logs and checkpoints.
+4. **Real-time Reporter**:
+   - Provides updates on training status, resource utilization, and hyperparameter states.
 
 ---
 
 ## Example Workflow
 
-1. Start the Ray cluster, ensuring all nodes are correctly configured and connected.
-2. Configure resource allocation and desired hyperparameter ranges in the script.
-3. Run the script to initiate PBT.
-4. Monitor progress in the terminal.
-5. Analyze the results logged in `Running_Results.txt` and the `results/` directory.
+1. Start the Ray cluster with connected nodes configured for heterogeneous resources.
+2. Customize resource allocation and hyperparameter mutation ranges in the script.
+3. Execute the script to initiate the hyperparameter tuning system.
+4. Monitor real-time logs in the terminal.
+5. Analyze the training results and model performance from the output directory.
 
 ---
 
 ## Future Improvements
 
 - **Support for Additional Models**:
-  - Extend support to other architectures like EfficientNet or Vision Transformers.
-  
-- **Dynamic Resource Scaling**:
-  - Implement adaptive resource scaling based on training load and node availability.
+  - Extend to support transformers and other architectures for broader application.
 
-- **Advanced Visualization**:
-  - Enhance reporting with graphical dashboards using tools like TensorBoard or Matplotlib.
+- **Integration with Advanced Schedulers**:
+  - Incorporate more sophisticated scheduling algorithms for task prioritization.
 
-- **Integration with Ray Tune**:
-  - Leverage Ray Tune's built-in PBT capabilities for streamlined experimentation.
+- **Enhanced Visualization**:
+  - Add graphical dashboards for progress monitoring and resource usage analytics.
+
+- **Cloud Integration**:
+  - Adapt the system for seamless deployment on cloud platforms like AWS, GCP, or Azure.
 
 ---
 
