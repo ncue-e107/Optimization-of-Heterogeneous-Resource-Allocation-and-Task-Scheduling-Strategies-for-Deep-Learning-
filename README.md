@@ -35,7 +35,7 @@ The system supports **ResNet-18** and **ResNet-50** models, trained on **CIFAR-1
 
 Install the dependencies using:
 ```bash
-pip install -r requirements.txt
+pip install -r /python code/requirements.txt
 ```
 
 ---
