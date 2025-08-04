@@ -51,8 +51,8 @@ Use Conda to directly create a pre-configured environment (Python 3.8.15 + all r
 
 ```bash
 # Clone the repository
-git clone https://github.com/ncue-e107/Optimization-of-Heterogeneous-Resource-Allocation-and-Task-Scheduling-Strategies-for-Deep-Learning-.git
-cd Optimization-of-Heterogeneous-Resource-Allocation-and-Task-Scheduling-Strategies-for-Deep-Learning-
+git clone https://github.com/ncue-e107/The-HRFS-Heterogeneous-Resource-Fusion-Scheduling-framework.git
+cd The-HRFS-Heterogeneous-Resource-Fusion-Scheduling-framework
 
 # Create a virtual environment (named HRFS)
 conda env create -f HRFS.yaml -n HRFS
@@ -69,8 +69,8 @@ python installyaml.py
 ### Option 2: Use pip (Fallback)
 If you are not using Conda, you can install the dependencies using pip instead:
 ```bash
-git clone https://github.com/ncue-e107/Optimization-of-Heterogeneous-Resource-Allocation-and-Task-Scheduling-Strategies-for-Deep-Learning-.git
-cd Optimization-of-Heterogeneous-Resource-Allocation-and-Task-Scheduling-Strategies-for-Deep-Learning-.git
+git clone https://github.com/ncue-e107/The-HRFS-Heterogeneous-Resource-Fusion-Scheduling-framework.git
+cd The-HRFS-Heterogeneous-Resource-Fusion-Scheduling-framework.git
 pip install -r "python code/requirements.txt"
 
 # (Optional) Create the default directory for saving program outputs and datasets:
