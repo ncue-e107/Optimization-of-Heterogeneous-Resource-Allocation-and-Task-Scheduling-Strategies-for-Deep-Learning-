@@ -57,6 +57,8 @@ cd Optimization-of-Heterogeneous-Resource-Allocation-and-Task-Scheduling-Strateg
 # 建立虛擬環境（名稱為 HRFS）
 conda env create -f HRFS.yaml -n HRFS
 conda activate HRFS
+# (Optional) Create the default directory for saving program outputs and datasets:
+mkdir -p ~/Documents/workspace/tune_population_based/
 ```
 如遇安裝失敗，可執行以下輔助安裝腳本：
 ```bash
