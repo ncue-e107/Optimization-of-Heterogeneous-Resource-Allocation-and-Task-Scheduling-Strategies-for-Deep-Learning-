@@ -1,4 +1,4 @@
-# 🧠 Optimization of Heterogeneous Resource Allocation and Task Scheduling Strategies for Deep Learning Automatic Hyperparameter Tuning System Based on Ray Tune
+# 🧠 The HRFS (Heterogeneous Resource Fusion Scheduling) framework
 
 ![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)
 
