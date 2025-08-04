@@ -41,32 +41,32 @@ This project implements an advanced hyperparameter tuning system for deep learni
 
 ## 🛠 Installation
 
-本專案建議使用 Conda 建立虛擬環境以達到更高的可重現性，亦提供 pip 安裝作為備用方案。
+The project recommends using Conda to create a virtual environment for better reproducibility. A pip-based installation is also provided as a fallback option.
 
 ---
 
 ###  Option 1: Use Conda (Recommended)
 
-使用 Conda 直接建立已配置完成的環境（Python 3.8.15 + 所需依賴）：
+Use Conda to directly create a pre-configured environment (Python 3.8.15 + all required dependencies):
 
 ```bash
 # Clone the repository
 git clone https://github.com/ncue-e107/Optimization-of-Heterogeneous-Resource-Allocation-and-Task-Scheduling-Strategies-for-Deep-Learning-.git
 cd Optimization-of-Heterogeneous-Resource-Allocation-and-Task-Scheduling-Strategies-for-Deep-Learning-
 
-# 建立虛擬環境（名稱為 HRFS）
+# Create a virtual environment (named HRFS)
 conda env create -f HRFS.yaml -n HRFS
 conda activate HRFS
 # (Optional) Create the default directory for saving program outputs and datasets:
 mkdir -p ~/Documents/workspace/tune_population_based/
 ```
-如遇安裝失敗，可執行以下輔助安裝腳本：
+If the installation fails, you may run the following auxiliary installation script:
 ```bash
 python installyaml.py
 ```
 
 ### Option 2: Use pip (Fallback)
-若您未使用 Conda，也可使用 pip 安裝依賴：
+If you are not using Conda, you can install the dependencies using pip instead:
 ```bash
 git clone https://github.com/ncue-e107/Optimization-of-Heterogeneous-Resource-Allocation-and-Task-Scheduling-Strategies-for-Deep-Learning-.git
 cd Optimization-of-Heterogeneous-Resource-Allocation-and-Task-Scheduling-Strategies-for-Deep-Learning-.git
