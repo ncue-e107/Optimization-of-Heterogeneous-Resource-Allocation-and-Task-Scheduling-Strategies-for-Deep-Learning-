@@ -734,7 +734,7 @@ if __name__ == "__main__":
 
     # Ray 初始化
     runtime_env = {
-        "working_dir": dir_path,
+        "working_dir": os.path.dirname(os.path.abspath(__file__)),
         "excludes": ["data/", "my_model/", "ray_results/", "pytorch-cifar/"],
     }
 
