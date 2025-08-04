@@ -149,18 +149,12 @@ The system is modularized into five key components, each responsible for a speci
 
 ## Future Improvements
 
-- **Support for Additional Models**:
-  - Extend to support transformers and other architectures for broader application.
-
-- **Integration with Advanced Schedulers**:
-  - Incorporate more sophisticated scheduling algorithms for task prioritization.
-
-- **Enhanced Visualization**:
-  - Add graphical dashboards for progress monitoring and resource usage analytics.
-
-- **Cloud Integration**:
-  - Adapt the system for seamless deployment on cloud platforms like AWS, GCP, or Azure.
-
+1. The current approach treats each Node as a single Worker. However, in practice, a Worker may span multiple Nodes—particularly in scenarios involving large-scale models or datasets that exceed the memory capacity of a single machine. Future research could explore strategies for multi-Node Worker configurations, ena-bling more scalable and flexible resource utilization across distributed environments.
+2. Current resource allocation relies primarily on CPU/GPU capacity and memory. However, this overlooks other critical factors such as network speed, band-width, and Node topology, which can significantly impact training time, especially in high-communication workloads or data-parallel training. Future scheduling algo-rithms should incorporate these dimensions to improve performance predictability and overall system efficiency.
+3. Workload estimation for machine learning tasks is inherently complex and varies across model types and configurations. For example, neural networks with larger parameter sizes often require more computation per gradient descent step and more iterations to converge, leading to significant differences in training time. To address this, future work could integrate parameter-aware workload estimation mod-els that account for architecture size, batch size, and convergence behavior.
+4, This work adopts a bimodal fast/slow Worker classification in HRFS, which has been shown to be effective in our experiments. As clusters grow larger and more diverse, we plan to extend HRFS to a tiered classification approach, leveraging the continuous nature of TCA values. This finer-grained stratification has the poten-tial to further improve scheduling precision, workload balance, and overall training efficiency in highly heterogeneous environments.
+5. While HRFS effectively balances resource allocation through TCA-based scheduling, the initialization of Worker TCAs carries a theoretical risk of bias, espe-cially in cases where Trial workloads differ substantially. In future work, we plan to investigate strategies such as multiple initialization rounds, hierarchical TCA estima-tion, and variance-aware weighting to refine Worker classification and enhance ro-bustness in highly heterogeneous environments.
+6. While Ray Tune provides an early stopping mechanism, it limits the ability to estimate full workloads in advance. To overcome this, future strategies could employ heuristic or machine learning-based predictive models that estimate workload patterns incrementally. These models could adapt based on observed runtime behavior, allowing more intelligent Trial reassignment and resource realloca-tion during execution—even in the presence of early-stopped Trials.
 ---
 
 ## License
