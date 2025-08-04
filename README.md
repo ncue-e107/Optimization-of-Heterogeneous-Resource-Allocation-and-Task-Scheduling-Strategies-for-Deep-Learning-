@@ -80,7 +80,7 @@ This will run the experiment 3 times using the default configuration. Logs and r
 
 | Description                      | Script/Configuration              | Notes |
 |----------------------------------|-----------------------------------|-------|
-| Baseline (Ray PBT)              | [ray-project/ray:tune/examples/pbt_ppo_example.py](https://github.com/ray-project/ray/blob/master/python/ray/tune/examples/pbt_ppo_example.py) | Official Ray PBT baseline |
+| Baseline (Ray PBT)              | `ray_offical_func.py` | Official Ray PBT baseline |
 | Ours (Heterogeneous PBT)        | `main.py` with dynamic placement | Includes resource-aware tuning |
 | Reproducibility Evaluation      | `--exp_times N`| Multi-run logging enabled |
 
