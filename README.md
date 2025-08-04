@@ -1,70 +1,92 @@
-# Optimization of Heterogeneous Resource Allocation and Task Scheduling Strategies for Deep Learning Automatic Hyperparameter Tuning System Based on Ray Tune
+# 🧠 Optimization of Heterogeneous Resource Allocation and Task Scheduling Strategies for Deep Learning Automatic Hyperparameter Tuning System Based on Ray Tune
+
 ![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)
 
-This project implements an advanced hyperparameter tuning system for deep learning models, focusing on optimizing **heterogeneous resource allocation** and **task scheduling strategies**. It uses **Ray Tune** to efficiently manage distributed workloads and performs **Population-Based Training (PBT)** to evolve hyperparameters dynamically.
-
-The system supports **ResNet-18** and **ResNet-50** models, trained on **CIFAR-10** and **CIFAR-100** datasets, with automatic task scheduling and resource allocation strategies tailored for multi-node clusters with varying CPU and GPU resources.
+This repository contains the official implementation of our paper on **hyperparameter tuning with heterogeneous resource scheduling** using **Ray Tune**. To ensure full reproducibility, we provide benchmark configurations, environment setup steps, and scripts for running all major experiments.
 
 ---
 
-## Features
+## 📑 Table of Contents
 
-1. **Optimized Resource Allocation:**
-   - Adapts to heterogeneous clusters by balancing task distribution across nodes with different CPU and GPU configurations.
-   
-2. **Advanced Task Scheduling:**
-   - Dynamically schedules training jobs based on available resources and trial progress.
-   
-3. **Population-Based Training (PBT):**
-   - Evolves hyperparameters through exploration (mutation) and exploitation (copying successful configurations).
-
-4. **Distributed Training with Ray Tune:**
-   - Efficiently distributes workloads across multiple nodes for scalable hyperparameter tuning.
-
-5. **Real-time Reporting and Analytics:**
-   - Monitors resource usage, training progress, and hyperparameter configurations in real-time.
-
-6. **Model Support:**
-   - Supports **ResNet-18** and **ResNet-50**, customizable for other models and datasets.
-
-7. **Checkpointing and Recovery:**
-   - Periodically saves training state for resumption and supports fault-tolerance.
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Reproducibility Checklist](#reproducibility-checklist)
+- [How to Run](#how-to-run)
+- [Benchmark Mapping](#benchmark-mapping)
+- [Configurations](#configurations)
+- [Components](#components)
+- [Example Workflow](#example-workflow)
+- [Future Improvements](#future-improvements)
+- [License](#license)
 
 ---
 
-## Requirements
+## 📝 Overview
 
-Install the dependencies using:
+This project implements an advanced hyperparameter tuning system for deep learning models, focusing on optimizing **heterogeneous resource allocation** and **task scheduling strategies**. It supports **ResNet-18** and **ResNet-50** models, trained on **CIFAR-10** and **CIFAR-100**, and uses **Population-Based Training (PBT)** for evolving hyperparameters.
+
+---
+
+## ✨ Features
+
+- ✅ Optimized for heterogeneous CPU/GPU cluster environments
+- ✅ Advanced dynamic task scheduling
+- ✅ Ray Tune backend for distributed experiment management
+- ✅ Population-Based Training with checkpointing and mutation
+- ✅ Real-time logs and training analytics
+- ✅ Supports ResNet-18 and ResNet-50
+
+---
+
+## 🛠 Installation
+
 ```bash
-pip install -r /python code/requirements.txt
+git clone https://github.com/ncue-e107/Optimization-of-Heterogeneous-Resource-Allocation-and-Task-Scheduling-Strategies-for-Deep-Learning-.git
+cd Optimization-of-Heterogeneous-Resource-Allocation-and-Task-Scheduling-Strategies-for-Deep-Learning-.git
+pip install -r "python code/requirements.txt"
+
+# (Optional) Create the default directory for saving program outputs and datasets:
+mkdir -p ~/Documents/workspace/tune_population_based/
 ```
 
 ---
 
-## Usage
+## ✅ Reproducibility Checklist
 
-### 1. Configure the Environment
-- Update the `RESOURCE_ALLOCATION` dictionary in the script to reflect the available CPU and GPU resources for your cluster.
-
-### 2. Run the System
-Execute the script with:
-```bash
-python /python code/main.py --exp_times <number_of_experiments>
-```
-Replace `<number_of_experiments>` with the desired number of repetitions for the experiment.
-
-### 3. Monitor Training
-The system provides real-time logs of:
-- Resource usage (CPU/GPU)
-- Hyperparameter configurations
-- Training progress (accuracy and iterations)
-
-### 4. Analyze Results
-Output logs and checkpoints are saved in the `results/` directory. Summary statistics, including average runtime and accuracy, are logged in `Running_Results.txt`.
+| Component             | Provided |
+|----------------------|----------|
+| Open-source code      | ✅ Yes |
+| Dataset used          | ✅ CIFAR-10/100 (torchvision) |
+| Training script       | ✅ `main.py` |
+| Evaluation metrics    | ✅ Accuracy, training time |
+| Multi-run average     | ✅ Available via --exp_times flag |
+| Hardware reported     | ✅ Multi-node cluster, varying CPU/GPU |
+| Checkpoints/logs      | ✅ `results/`, `Running_Results.txt` |
 
 ---
 
-## Configurations
+## 🚀 How to Run
+
+```bash
+python /python code/main.py --exp_times 3
+```
+
+This will run the experiment 3 times using the default configuration. Logs and results will be saved in `results/`.
+
+---
+
+## 📊 Benchmark Mapping
+
+| Description                      | Script/Configuration              | Notes |
+|----------------------------------|-----------------------------------|-------|
+| Baseline (Ray PBT)              | [ray-project/ray:tune/examples/pbt_ppo_example.py](https://github.com/ray-project/ray/blob/master/python/ray/tune/examples/pbt_ppo_example.py) | Official Ray PBT baseline |
+| Ours (Heterogeneous PBT)        | `main.py` with dynamic placement | Includes resource-aware tuning |
+| Reproducibility Evaluation      | `--exp_times N`| Multi-run logging enabled |
+
+---
+
+## ⚙️ Configurations
 
 | Parameter               | Description                                    | Default Value |
 |-------------------------|------------------------------------------------|---------------|
@@ -77,29 +99,51 @@ Output logs and checkpoints are saved in the `results/` directory. Summary stati
 
 ---
 
-## Key Components
+## 🧩 Components
 
-1. **Task Scheduler and Resource Allocator**:
-   - Dynamically assigns tasks to nodes based on available resources and workload efficiency.
+The system is modularized into five key components, each responsible for a specific function within the heterogeneous-aware hyperparameter tuning framework:
 
-2. **Population-Based Training (PBT)**:
-   - Evolves hyperparameters such as learning rate and momentum to optimize model performance.
+- **Task Scheduler (`create_new_trial`)**: Dynamically assigns hyperparameter trials to available resources based on scheduling policies and system load.
 
-3. **Checkpoints and Recovery**:
-   - Saves model and optimizer states periodically to allow recovery and efficient mutation.
+- **Resource Allocator (`set_placement_group`)**: Initializes and maintains a pool of CPU/GPU resource bundles for each trial, respecting heterogeneous hardware profiles across nodes.
 
-4. **Real-time Reporter**:
-   - Provides updates on training status, resource utilization, and hyperparameter states.
+- **PBT Core (`mutation`, `quantile`, `explore`)**: Handles population-based training logic, including performance evaluation, cloning, and mutation of hyperparameters.
+
+- **Checkpoint Handler (`report_before_trial_end`)**: Periodically saves and restores model/optimizer states to support continued training and PBT mutation.
+
+- **Logger/Reporter (`Reporter`)**: Periodically reports training progress, current accuracy, resource usage, and hyperparameter status to the terminal in real time.
 
 ---
 
-## Example Workflow
+## 🖇️ Example Workflow
 
-1. Start the Ray cluster with connected nodes configured for heterogeneous resources.
-2. Customize resource allocation and hyperparameter mutation ranges in the script.
-3. Execute the script to initiate the hyperparameter tuning system.
-4. Monitor real-time logs in the terminal.
-5. Analyze the training results and model performance from the output directory.
+**Start Ray Cluster**:
+
+- Launch Ray using `ray start` or via cluster launcher with all nodes (e.g., `ray://192.168.50.35:10001`).
+**Configure Resources**:
+- Define CPU/GPU availability for each node in the `RESOURCE_ALLOCATION` dictionary in `main.py`.
+
+**Run Experiments**:
+
+- Use the following command to run the experiment multiple times:
+
+     ```bash
+     python /python code/main.py --exp_times 3
+     ```
+
+- This triggers multiple tuning runs for both ResNet-18 (CIFAR-10) and ResNet-50 (CIFAR-100).
+
+**Monitor Training Progress**:
+
+- The `Reporter` class logs training status, resource usage, accuracy, and trial states in real time.
+
+**Evaluate Results**:
+
+- Summary metrics are written to `Running_Results.txt`, and detailed accuracy logs are stored in `results/<timestamp>/`.
+
+**Compare with Ray PBT Baseline**:
+
+- Use official Ray PBT code for baseline comparison: [Ray PBT PPO Example](https://github.com/ray-project/ray/blob/master/python/ray/tune/examples/pbt_ppo_example.py)
 
 ---
 
@@ -123,13 +167,19 @@ Output logs and checkpoints are saved in the `results/` directory. Summary stati
 
 This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License** (CC BY-NC 4.0).
 
-### Permissions:
+### Permissions
+
 - **Share**: You may copy and redistribute the material in any medium or format.
 - **Adapt**: You may remix, transform, and build upon the material for non-commercial purposes.
 
-### Restrictions:
+### Restrictions
+
 - **NonCommercial**: The material may not be used for commercial purposes.
 - **Attribution Required**: Proper credit must be given, a link to the license must be provided, and any changes made must be indicated.
 
 For more details, refer to the full license: [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
 
+## Acknowledgements
+
+- [Python Ray](https://github.com/ray-project/ray)
+- [PyTorch](https://github.com/pytorch/pytorch)
